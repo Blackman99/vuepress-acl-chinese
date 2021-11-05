@@ -1,4 +1,6 @@
-const { path } = require('@vuepress/utils')
+const hljs = require('highlight.js/lib/core')
+const lisp = require('highlight.js/lib/languages/lisp')
+hljs.registerLanguage('lisp', lisp)
 module.exports = {
   lang: 'zh-CN',
   title: 'ANSI Common LISP 中文版，为了更加友好的阅读体验',
@@ -33,10 +35,13 @@ module.exports = {
       '/acl-chinese-md/appendix-D-cn',
     ]
   },
-  clientAppRootComponentFiles: path.resolve(__dirname, './RootComponent.vue'),
   plugins: [
     // ['@vuepress/plugin-shiki', {
     //   theme: require('./atom-one-dark.json')
     // }]
-  ]
+  ],
+  extendsPageOptions: (options) => {
+    // page.content = hljs.highlight(page.content, { language: 'lisp' }).value
+    console.log(options)
+  }
 }
