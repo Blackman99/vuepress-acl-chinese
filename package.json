@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "ali-oss-static-web-deploy": "^0.0.8",
     "rst2mdown": "^0.1.0"
   },
   "scripts": {
