@@ -1,6 +1,7 @@
+const { path } = require('@vuepress/utils')
 module.exports = {
   lang: 'zh-CN',
-  title: 'ANSI Common LISP 中文版',
+  title: 'ANSI Common LISP 中文版，为了更加友好的阅读体验',
   description: '使用Vueperss搭建的ANSI Common LISP 中文版',
   themeConfig: {
     logo: 'https://vuejs.org/images/logo.png',
@@ -31,5 +32,11 @@ module.exports = {
       '/acl-chinese-md/appendix-C-cn',
       '/acl-chinese-md/appendix-D-cn',
     ]
-  }
+  },
+  clientAppRootComponentFiles: path.resolve(__dirname, './RootComponent.vue'),
+  plugins: [
+    // ['@vuepress/plugin-shiki', {
+    //   theme: require('./atom-one-dark.json')
+    // }]
+  ]
 }
