@@ -1,3 +1,12 @@
 pre {
   background-color: var(--code-bg-color);
 }
+
+:root {
+  --c-brand: #8e24aa;
+  --c-brand-light: #ab47bc;
+}
+html.dark {
+  --c-brand: #8e24aa;
+  --c-brand-light: #ab47bc;
+}

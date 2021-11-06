@@ -9,9 +9,7 @@ module.exports = {
   title: 'ANSI Common LISP 中文版，为了更加友好的阅读体验',
   description: '使用Vueperss搭建的ANSI Common LISP 中文版',
   themeConfig: {
-    logo: 'https://vuejs.org/images/logo.png',
-  },
-  themeConfig: {
+    logo: 'https://common-lisp.net/static/imgs/favicon.ico',
     sidebar: [
       '/acl-chinese-md/preface-cn',
       '/acl-chinese-md/ch1-cn',
