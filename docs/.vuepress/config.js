@@ -1,6 +1,9 @@
+const escapeHtml = require('markdown-it/lib/common/utils').escapeHtml
 const hljs = require('highlight.js/lib/core')
 const lisp = require('highlight.js/lib/languages/lisp')
 hljs.registerLanguage('lisp', lisp)
+
+
 module.exports = {
   lang: 'zh-CN',
   title: 'ANSI Common LISP 中文版，为了更加友好的阅读体验',
@@ -35,13 +38,12 @@ module.exports = {
       '/acl-chinese-md/appendix-D-cn',
     ]
   },
-  plugins: [
-    // ['@vuepress/plugin-shiki', {
-    //   theme: require('./atom-one-dark.json')
-    // }]
-  ],
-  extendsPageOptions: (options) => {
-    // page.content = hljs.highlight(page.content, { language: 'lisp' }).value
-    console.log(options)
-  }
+  extendsMarkdown: (md) => {
+    md.renderer.rules.code_block = function (tokens, idx, options, env, slf) {
+      const token = tokens[idx]
+
+      return `<pre ${slf.renderAttrs(token)}><code>${hljs.highlight(token.content, { language: 'lisp' }).value}</code></pre>`
+    
+    }
+  },
 }
