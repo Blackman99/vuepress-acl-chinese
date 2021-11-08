@@ -72,23 +72,21 @@ HTML 还有不少其他的标签，但是本章要用到的标签，基本都包
 16.2 HTML 实用函数 (HTML Utilities)
 -----------------------------------
 
-``` {.sourceCode .cl}
-(defmacro as (tag content)
-  `(format t "<~(~A~)>~A</~(~A~)>"
-           ',tag ,content ',tag))
+    (defmacro as (tag content)
+      `(format t "<~(~A~)>~A</~(~A~)>"
+            ',tag ,content ',tag))
 
-(defmacro with (tag &rest body)
-  `(progn
-     (format t "~&<~(~A~)>~%" ',tag)
-     ,@body
-     (format t "~&</~(~A~)>~%" ',tag)))
+    (defmacro with (tag &rest body)
+      `(progn
+        (format t "~&<~(~A~)>~%" ',tag)
+        ,@body
+        (format t "~&</~(~A~)>~%" ',tag)))
 
-(defmacro brs (&optional (n 1))
-  (fresh-line)
-  (dotimes (i n)
-    (princ "<br>"))
-  (terpri))
-```
+    (defmacro brs (&optional (n 1))
+      (fresh-line)
+      (dotimes (i n)
+        (princ "<br>"))
+      (terpri))
 
 **图 16.3 标签生成例程**
 
@@ -124,23 +122,21 @@ HTML 更具可读性，实际上，标签之外的空白并不影响页面的显
 图 16.3 中的最后一个例程 `brs` 用于创建多个文本行。
 在很多浏览器中，这个例程都可以用于控制垂直间距。
 
-``` {.sourceCode .cl}
-(defun html-file (base)
-  (format nil "~(~A~).html" base))
+    (defun html-file (base)
+      (format nil "~(~A~).html" base))
 
-(defmacro page (name title &rest body)
-  (let ((ti (gensym)))
-    `(with-open-file (*standard-output*
-                      (html-file ,name)
-                      :direction :output
-                      :if-exists :supersede)
-       (let ((,ti ,title))
-         (as title ,ti)
-         (with center
-           (as h2 (string-upcase ,ti)))
-         (brs 3)
-         ,@body))))
-```
+    (defmacro page (name title &rest body)
+      (let ((ti (gensym)))
+        `(with-open-file (*standard-output*
+                          (html-file ,name)
+                          :direction :output
+                          :if-exists :supersede)
+          (let ((,ti ,title))
+            (as title ,ti)
+            (with center
+              (as h2 (string-upcase ,ti)))
+            (brs 3)
+            ,@body))))
 
 **图 16.4 HTML 文件生成例程**
 
@@ -169,7 +165,7 @@ HTML 更具可读性，实际上，标签之外的空白并不影响页面的显
 这会产生一个名为 `paren.html` 的文件（文件名由 `html-file`
 函数生成），文件中的内容为：
 
-``` {.sourceCode .html}
+```html
 <title>The Unbalanced Parenthesis</title>
 <center>
 <h2>THE UNBALANCED PARENTHESIS</h2>
@@ -182,24 +178,22 @@ Something in his expression told her...
 `<title>`
 标签包围的文本并不显示在网页之内，它们会显示在浏览器窗口，用作页面的标题。
 
-``` {.sourceCode .cl}
-(defmacro with-link (dest &rest body)
-  `(progn
-     (format t "<a href=\"~A\">" (html-file ,dest))
-     ,@body
-     (princ "</a>")))
+    (defmacro with-link (dest &rest body)
+      `(progn
+        (format t "<a href=\"~A\">" (html-file ,dest))
+        ,@body
+        (princ "</a>")))
 
-(defun link-item (dest text)
-  (princ "<li>")
-  (with-link dest
-    (princ text)))
+    (defun link-item (dest text)
+      (princ "<li>")
+      (with-link dest
+        (princ text)))
 
-(defun button (dest text)
-  (princ "[ ")
-  (with-link dest
-    (princ text))
-  (format t " ]~%"))
-```
+    (defun button (dest text)
+      (princ "[ ")
+      (with-link dest
+        (princ text))
+      (format t " ]~%"))
 
 **图 16.5 生成链接的例程**
 
@@ -239,18 +233,16 @@ Something in his expression told her...
 时间关系，要在这里演示这个开始-完成-又再开始的过程是不太可能的，这里只展示这个迭代式例程的最终形态，需要注意的是，这个程序的编写并不如想象中的那么简单。
 程序通常需要经历多次重写，才会变得简单。
 
-``` {.sourceCode .cl}
-(defun map3 (fn lst)
-  (labels ((rec (curr prev next left)
-             (funcall fn curr prev next)
-             (when left
-               (rec (car left)
-                    curr
-                    (cadr left)
-                    (cdr left)))))
-    (when lst
-      (rec (car lst) nil (cadr lst) (cdr lst)))))
-```
+    (defun map3 (fn lst)
+      (labels ((rec (curr prev next left)
+                (funcall fn curr prev next)
+                (when left
+                  (rec (car left)
+                        curr
+                        (cadr left)
+                        (cdr left)))))
+        (when lst
+          (rec (car lst) nil (cadr lst) (cdr lst)))))
 
 **图 16.6 对树进行迭代**
 
@@ -258,26 +250,22 @@ Something in his expression told her...
 的一个变种。它接受一个函数和一个列表作为参数，对于传入列表中的每个元素，它都会用三个参数来调用传入函数，分别是元素本身，前一个元素，以及后一个元素。（当没有前一个元素或者后一个元素时，使用
 `nil` 代替。）
 
-``` {.sourceCode .cl}
-> (map3 #'(lambda (&rest args) (princ args))
-        '(a b c d))
-(A NIL B) (B A C) (C B D) (D C NIL)
-NIL
-```
+    > (map3 #'(lambda (&rest args) (princ args))
+            '(a b c d))
+    (A NIL B) (B A C) (C B D) (D C NIL)
+    NIL
 
 和 `mapc` 一样， `map3` 总是返回 `nil`
 作为函数的返回值。需要这类例程的情况非常多。在下一个小节就会看到，这个例程是如何让每个页面都实现“前进一页”和“后退一页”功能的。
 
 `map3` 的一个常见功能是，在列表的两个相邻元素之间进行某些处理：
 
-``` {.sourceCode .cl}
-> (map3 #'(lambda (c p n)
-            (princ c)
-            (if n (princ " | ")))
-        '(a b c d))
-A | B | C | D
-NIL
-```
+    > (map3 #'(lambda (c p n)
+                (princ c)
+                (if n (princ " | ")))
+            '(a b c d))
+    A | B | C | D
+    NIL
 
 程序员经常会遇到上面的这类问题，但只要花些功夫，定义一些例程来处理它们，就能为后续工作节省不少时间。
 
@@ -306,30 +294,28 @@ NIL
 
 图 16.7 展示了生成程序创建的页面所形成的链接结构。
 
-``` {.sourceCode .cl}
-(defparameter *sections* nil)
+    (defparameter *sections* nil)
 
-(defstruct item
-  id title text)
+    (defstruct item
+      id title text)
 
-(defstruct section
-  id title items)
+    (defstruct section
+      id title items)
 
-(defmacro defitem (id title text)
-  `(setf ,id
-         (make-item :id     ',id
-                    :title  ,title
-                    :text   ,text)))
+    (defmacro defitem (id title text)
+      `(setf ,id
+            (make-item :id     ',id
+                        :title  ,title
+                        :text   ,text)))
 
-(defmacro defsection (id title &rest items)
-  `(setf ,id
-         (make-section :id    ',id
-                       :title ,title
-                       :items (list ,@items))))
+    (defmacro defsection (id title &rest items)
+      `(setf ,id
+            (make-section :id    ',id
+                          :title ,title
+                          :items (list ,@items))))
 
-(defun defsite (&rest sections)
-  (setf *sections* sections))
-```
+    (defun defsite (&rest sections)
+      (setf *sections* sections))
 
 **图 16.8 定义一个网站**
 
@@ -349,35 +335,33 @@ name），比如说，如果项的标识符为 `foo` ，那么项就会被写到
 在节点里，项的排列顺序由传给 `defsection` 的参数决定。
 与此类似，在目录里，节点的排列顺序由传给 `defsite` 的参数决定。
 
-``` {.sourceCode .cl}
-(defconstant contents "contents")
-(defconstant index    "index")
+    (defconstant contents "contents")
+    (defconstant index    "index")
 
-(defun gen-contents (&optional (sections *sections*))
-  (page contents contents
-    (with ol
-      (dolist (s sections)
-        (link-item (section-id s) (section-title s))
-        (brs 2))
-      (link-item index (string-capitalize index)))))
+    (defun gen-contents (&optional (sections *sections*))
+      (page contents contents
+        (with ol
+          (dolist (s sections)
+            (link-item (section-id s) (section-title s))
+            (brs 2))
+          (link-item index (string-capitalize index)))))
 
-(defun gen-index (&optional (sections *sections*))
-  (page index index
-    (with ol
-      (dolist (i (all-items sections))
-        (link-item (item-id i) (item-title i))
-        (brs 2)))))
+    (defun gen-index (&optional (sections *sections*))
+      (page index index
+        (with ol
+          (dolist (i (all-items sections))
+            (link-item (item-id i) (item-title i))
+            (brs 2)))))
 
-(defun all-items (sections)
-  (let ((is nil))
-    (dolist (s sections)
-      (dolist (i (section-items s))
-        (setf is (merge 'list (list i) is #'title<))))
-    is))
+    (defun all-items (sections)
+      (let ((is nil))
+        (dolist (s sections)
+          (dolist (i (section-items s))
+            (setf is (merge 'list (list i) is #'title<))))
+        is))
 
-(defun title< (x y)
-  (string-lessp (item-title x) (item-title y)))
-```
+    (defun title< (x y)
+      (string-lessp (item-title x) (item-title y)))
 
 **图 16.9 生成索引和目录**
 
@@ -396,39 +380,37 @@ name），比如说，如果项的标识符为 `foo` ，那么项就会被写到
 实际程序中的对比操作通常更复杂一些。举个例子，它们需要忽略无意义的句首词汇，比如
 `"a"` 和 `"the"` 。
 
-``` {.sourceCode .cl}
-(defun gen-site ()
-  (map3 #'gen-section *sections*)
-  (gen-contents)
-  (gen-index))
+    (defun gen-site ()
+      (map3 #'gen-section *sections*)
+      (gen-contents)
+      (gen-index))
 
-(defun gen-section (sect <sect sect>)
-  (page (section-id sect) (section-title sect)
-    (with ol
-      (map3 #'(lambda (item <item item>)
-                (link-item (item-id item)
-                           (item-title item))
-                (brs 2)
-                (gen-item sect item <item item>))
-            (section-items sect)))
-    (brs 3)
-    (gen-move-buttons (if <sect (section-id <sect))
-                      contents
-                      (if sect> (section-id sect>)))))
+    (defun gen-section (sect <sect sect>)
+      (page (section-id sect) (section-title sect)
+        (with ol
+          (map3 #'(lambda (item <item item>)
+                    (link-item (item-id item)
+                              (item-title item))
+                    (brs 2)
+                    (gen-item sect item <item item>))
+                (section-items sect)))
+        (brs 3)
+        (gen-move-buttons (if <sect (section-id <sect))
+                          contents
+                          (if sect> (section-id sect>)))))
 
-(defun gen-item (sect item <item item>)
-  (page (item-id item) (item-title item)
-    (princ (item-text item))
-    (brs 3)
-    (gen-move-buttons (if <item (item-id <item))
-                      (section-id sect)
-                      (if item> (item-id item>)))))
+    (defun gen-item (sect item <item item>)
+      (page (item-id item) (item-title item)
+        (princ (item-text item))
+        (brs 3)
+        (gen-move-buttons (if <item (item-id <item))
+                          (section-id sect)
+                          (if item> (item-id item>)))))
 
-(defun gen-move-buttons (back up forward)
-  (if back (button back "Back"))
-  (if up (button up "Up"))
-  (if forward (button forward "Forward")))
-```
+    (defun gen-move-buttons (back up forward)
+      (if back (button back "Back"))
+      (if up (button up "Up"))
+      (if forward (button forward "Forward")))
 
 **图 16.10 生成网站、节点和项**
 
@@ -454,20 +436,18 @@ name），比如说，如果项的标识符为 `foo` ，那么项就会被写到
 图 16.11 演示了如何手工地定义一个微型网页。 在这个例子中，列出的项都是
 Fortune 饼干公司新推出的产品。
 
-``` {.sourceCode .cl}
-(defitem des "Fortune Cookies: Dessert or Fraud?" "...")
+    (defitem des "Fortune Cookies: Dessert or Fraud?" "...")
 
-(defitem case "The Case for Pessimism" "...")
+    (defitem case "The Case for Pessimism" "...")
 
-(defsection position "Position Papers" des case)
+    (defsection position "Position Papers" des case)
 
-(defitem luck "Distribution of Bad Luck" "...")
+    (defitem luck "Distribution of Bad Luck" "...")
 
-(defitem haz "Health Hazards of Optimism" "...")
+    (defitem haz "Health Hazards of Optimism" "...")
 
-(defsection abstract "Research Abstracts" luck haz)
+    (defsection abstract "Research Abstracts" luck haz)
 
-(defsite position abstract)
-```
+    (defsite position abstract)
 
 **图 16.11 一个微型网站**
