@@ -46,9 +46,9 @@ A-D 包括了一个如何调试程序的指南， 58 个 Common Lisp
 
 本书还包括一节备注。这些备注包括一些说明，一些参考条目，一些额外的代码，以及一些对偶然出现的不正确表述的纠正。备注在文中用一个小圆圈来表示，像这样：○
 
-> **note**
->
-> 译注: 由于小圈圈 ○ 实在太不明显了，译文中使用 λ 符号来表示备注。
+:::tip note
+译注: 由于小圈圈 ○ 实在太不明显了，译文中使用 λ 符号来表示备注。
+:::
 
 [λ](http://ansi-common-lisp.readthedocs.org/en/latest/zhCN/notes-cn.html#viii-notes-viii)
 
@@ -65,9 +65,9 @@ Lisp 的 FAQ 。还有很多有关 Lisp 的资源可以在此找到：
 <ftp://ftp.eecs.harvard.edu:/pub/onlisp/> 读者的问题和意见可以发送到
 <pg@eecs.harvard.edu> 。
 
-> **tip**
->
-> 译注：下载的链接都坏掉了，本书的代码可以到此下载：https://raw.github.com/acl-translation/acl-chinese/master/code/acl2.lisp
+::: tip 提示
+下载的链接都坏掉了，本书的代码可以到此下载：https://raw.github.com/acl-translation/acl-chinese/master/code/acl2.lisp
+:::
 
 On Lisp
 -------
@@ -83,10 +83,10 @@ Lisp
 Lisp 技术的读者，读一下本书的姐妹篇： [On
 Lisp](http://www.paulgraham.com/onlisp.html) 。
 
-> **tip**
->
-> On Lisp 已经由知名 Lisp 黑客 ── 田春 ── 翻译完成，可以在网络上找到。
+::: tip 提示
+On Lisp 已经由知名 Lisp 黑客 ── 田春 ── 翻译完成，可以在网络上找到。  
 > ── 田春（知名 Lisp 黑客、Practical Common Lisp 译者）
+:::
 
 鸣谢
 ----

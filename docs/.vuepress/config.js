@@ -1,4 +1,3 @@
-const escapeHtml = require('markdown-it/lib/common/utils').escapeHtml
 const hljs = require('highlight.js/lib/core')
 const lisp = require('highlight.js/lib/languages/lisp')
 hljs.registerLanguage('lisp', lisp)
@@ -6,9 +5,13 @@ hljs.registerLanguage('lisp', lisp)
 
 module.exports = {
   lang: 'zh-CN',
-  title: 'ANSI Common LISP 中文版，为了更加友好的阅读体验',
-  description: '使用Vueperss搭建的ANSI Common LISP 中文版',
+  title: 'ANSI Common LISP 中文版',
+  description: '使用Vueperss搭建的ANSI Common LISP 中文版，为了更友好的阅读体验',
   themeConfig: {
+    navbar: [{
+      text: 'Github',
+      link: 'https://github.com/Blackman99/vuepress-acl-chinese',
+    },],
     logo: 'https://common-lisp.net/static/imgs/favicon.ico',
     sidebar: [
       '/acl-chinese-md/preface-cn',
@@ -33,7 +36,7 @@ module.exports = {
       '/acl-chinese-md/appendix-A-cn',
       '/acl-chinese-md/appendix-B-cn',
       '/acl-chinese-md/appendix-C-cn',
-      '/acl-chinese-md/appendix-D-cn',
+      '/acl-chinese-md/appendix-D-cn', 
     ]
   },
   extendsMarkdown: (md) => {

@@ -5,8 +5,22 @@ pre {
 :root {
   --c-brand: #8e24aa;
   --c-brand-light: #ab47bc;
+  --c-tip: var(--c-brand);
 }
 html.dark {
-  --c-brand: #8e24aa;
+  --c-brand: #ba68c8;
   --c-brand-light: #ab47bc;
+  --c-tip: var(--c-brand);
+  .custom-container {
+    &.tip {
+      background-color: darken($color: #ba68c8, $amount: 50%);
+    }
+  }
+}
+
+.custom-container {
+  border-radius: 5px;
+  &.tip {
+    background-color: lighten($color: #8e24aa, $amount: 50%);
+  }
 }
