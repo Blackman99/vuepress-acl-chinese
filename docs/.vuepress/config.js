@@ -12,11 +12,18 @@ module.exports = {
     ['meta', { name: 'theme-color', content: '#ba68c8' }],
   ],
   themeConfig: {
-    navbar: [{
-      text: 'Github',
-      link: 'https://github.com/Blackman99/vuepress-acl-chinese',
-    },],
+    docsBranch: 'master',
+    docsDir: 'docs',
+    repo: 'https://github.com/Blackman99/vuepress-acl-chinese',
+    editLinkText: '编辑此页',
+    toggleDarkMode: '切换暗黑模式',
     logo: 'https://common-lisp.net/static/imgs/favicon.ico',
+    lastUpdatedText: '最后更新于',
+    contributorsText: '贡献者',
+    notFound: '页面未找到',
+    backToHome: '返回首页',
+    openInNewWindow: '在新标签中打开',
+    toggleSidebar: '切换侧边栏',
     sidebar: [
       '/acl-chinese-md/preface-cn',
       '/acl-chinese-md/ch1-cn',
