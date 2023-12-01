@@ -6,7 +6,7 @@ hljs.registerLanguage('lisp', lisp)
 module.exports = {
   lang: 'zh-CN',
   title: 'ANSI Common LISP 中文版',
-  description: '使用Vueperss搭建的ANSI Common LISP 中文版，为了更友好的阅读体验',
+  description: '使用 Vueperss 搭建的 ANSI Common LISP 中文版，为了更友好的阅读体验',
   head: [
     ['link', { rel: 'manifest', href: '/manifest.webmanifest' }],
     ['meta', { name: 'theme-color', content: '#ba68c8' }],
